@@ -1,5 +1,6 @@
 ﻿using BepInEx;
 using BepInEx.Configuration;
+using BepInEx.Logging;
 using FlashUtils.Patches;
 using HarmonyLib;
 
@@ -11,16 +12,27 @@ public class Plugin : BaseUnityPlugin
     private readonly Harmony harmony = new(PluginInfo.PLUGIN_GUID);
     internal static Plugin Instance;
 
-    public ConfigEntry<bool> configInfiniteSprint { get; private set; }
+    public ConfigEntry<bool> ConfigInfiniteSprint { get; private set; }
+    public ConfigEntry<int> ConfigDeadlineDays { get; private set; }
+
+    internal static ManualLogSource logger;
 
     private void Awake()
     {
         if (Instance == null) Instance = this;
 
-        configInfiniteSprint = Config.Bind("Cheats", "InfiniteSprint", false, "Whether or not to enable infinite sprint.");
+        logger = Logger;
 
+        Logger.LogInfo("Loading Config...");
+        ConfigInfiniteSprint = Config.Bind("Cheats", "InfiniteSprint", false, "Whether or not to enable infinite sprint.");
+        ConfigDeadlineDays = Config.Bind("Quota", "DeadlineDays", 4, "How many days until the deadline.");
+
+        Logger.LogInfo("Patching PlayerControllerB...");
         harmony.PatchAll(typeof(PlayerControllerBPatch));
-        Logger.LogInfo($"Plugin {PluginInfo.PLUGIN_GUID} is loaded!");
+        Logger.LogInfo("Patching TimeOfDay...");
+        harmony.PatchAll(typeof(TimeOfDayPatch));
+
+        Logger.LogInfo("Done!");
     }
 }
 
