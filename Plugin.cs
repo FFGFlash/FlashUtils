@@ -27,6 +27,7 @@ public class Plugin : BaseUnityPlugin
         Logger.LogInfo("Loading Config...");
         ConfigInfiniteSprint = Config.Bind("Stamina", "InfiniteSprint", false, "Whether or not to enable infinite sprint.");
         ConfigSprintTime = Config.Bind("Stamina", "SprintTime", 5f, "Multiplier used to determine sprint cost.");
+
         ConfigDeadlineDays = Config.Bind("Quota", "DeadlineDays", 4, "How many days until the deadline.");
 
         Logger.LogInfo("Patching PlayerControllerB...");
