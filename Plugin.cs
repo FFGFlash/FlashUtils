@@ -14,6 +14,7 @@ public class Plugin : BaseUnityPlugin
 
     public ConfigEntry<bool> ConfigInfiniteSprint { get; private set; }
     public ConfigEntry<int> ConfigDeadlineDays { get; private set; }
+    public ConfigEntry<float> ConfigSprintTime { get; private set; }
 
     internal static ManualLogSource logger;
 
@@ -24,7 +25,8 @@ public class Plugin : BaseUnityPlugin
         logger = Logger;
 
         Logger.LogInfo("Loading Config...");
-        ConfigInfiniteSprint = Config.Bind("Cheats", "InfiniteSprint", false, "Whether or not to enable infinite sprint.");
+        ConfigInfiniteSprint = Config.Bind("Stamina", "InfiniteSprint", false, "Whether or not to enable infinite sprint.");
+        ConfigSprintTime = Config.Bind("Stamina", "SprintTime", 5f, "Multiplier used to determine sprint cost.");
         ConfigDeadlineDays = Config.Bind("Quota", "DeadlineDays", 4, "How many days until the deadline.");
 
         Logger.LogInfo("Patching PlayerControllerB...");
