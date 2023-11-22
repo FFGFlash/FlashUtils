@@ -8,7 +8,7 @@ internal class PlayerControllerBPatch
 {
   [HarmonyPatch("Update")]
   [HarmonyPostfix]
-  private static void patchUpdate(ref float ___sprintMeter)
+  private static void PatchUpdate(ref float ___sprintMeter)
   {
     if (Plugin.Instance.configInfiniteSprint.Value) ___sprintMeter = 1f;
   }
