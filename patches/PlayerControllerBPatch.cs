@@ -15,8 +15,9 @@ internal class PlayerControllerBPatch
 
   [HarmonyPatch("Update")]
   [HarmonyPostfix]
-  private static void PatchUpdate(ref float ___sprintMeter)
+  private static void PatchUpdate(ref float ___sprintMeter, ref float ___carryWeight)
   {
     if (Plugin.Instance.ConfigInfiniteSprint.Value) ___sprintMeter = 1f;
+    if (Plugin.Instance.ConfigWeightless.Value) ___carryWeight = 1f;
   }
 }

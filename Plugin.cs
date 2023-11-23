@@ -13,6 +13,7 @@ public class Plugin : BaseUnityPlugin
     internal static Plugin Instance;
 
     public ConfigEntry<bool> ConfigInfiniteSprint { get; private set; }
+    public ConfigEntry<bool> ConfigWeightless { get; private set; }
     public ConfigEntry<int> ConfigDeadlineDays { get; private set; }
     public ConfigEntry<float> ConfigSprintTime { get; private set; }
 
@@ -27,6 +28,7 @@ public class Plugin : BaseUnityPlugin
         Logger.LogInfo("Loading Config...");
         ConfigInfiniteSprint = Config.Bind("Stamina", "InfiniteSprint", false, "Whether or not to enable infinite sprint.");
         ConfigSprintTime = Config.Bind("Stamina", "SprintTime", 5f, "Multiplier used to determine sprint cost.");
+        ConfigWeightless = Config.Bind("Stamina", "Weightless", false, "Remove all weight from the game.");
 
         ConfigDeadlineDays = Config.Bind("Quota", "DeadlineDays", 4, "How many days until the deadline.");
 
