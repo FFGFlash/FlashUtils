@@ -13,7 +13,7 @@ public class Plugin : BaseUnityPlugin
     private readonly Harmony harmony = new(PluginInfo.PLUGIN_GUID);
     internal static Plugin Instance;
 
-    public static readonly ActionItem[] actions = new ActionItem[6] {
+    public static readonly ActionItem[] actions = new ActionItem[] {
         new("Emote1", Key.Z, "Dance Emote", 1),
         new("Emote2", Key.X, "Point Emote", 2),
         new("Slot1", Key.Digit1, "Equip Slot 1", 0),
