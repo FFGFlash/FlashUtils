@@ -32,7 +32,7 @@ internal class PlayerControllerBPatch
     if (Plugin.Instance.ConfigInfiniteSprint.Value) ___sprintMeter = 1f;
     if (Plugin.Instance.ConfigWeightless.Value) ___carryWeight = 1f;
 
-    ActionItem action = Array.Find(Plugin.actions, (ActionItem item) => Keyboard.current[item.ConfigEntry.Value].wasPressedThisFrame);
+    ActionItem action = Array.Find(Plugin.actions, item => Keyboard.current[item.ConfigEntry.Value].wasPressedThisFrame);
     if (action != null)
     {
       switch (action.Id)

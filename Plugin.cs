@@ -24,7 +24,10 @@ public class Plugin : BaseUnityPlugin
 
     public ConfigEntry<bool> ConfigEnabled { get; private set; }
     public ConfigEntry<bool> ConfigInvertScroll { get; private set; }
+    public ConfigEntry<bool> ConfigDisableBoot { get; private set; }
     public ConfigEntry<bool> ConfigInfiniteSprint { get; private set; }
+    public ConfigEntry<bool> ConfigInfiniteCredits { get; private set; }
+    public ConfigEntry<int> ConfigStartingCredits { get; private set; }
     public ConfigEntry<bool> ConfigWeightless { get; private set; }
     public ConfigEntry<int> ConfigDeadlineDays { get; private set; }
     public ConfigEntry<float> ConfigSprintTime { get; private set; }
@@ -33,13 +36,16 @@ public class Plugin : BaseUnityPlugin
 
     private void Awake()
     {
-        if (Instance == null) Instance = this;
-
-        logger = Logger;
+        Instance ??= this;
+        logger ??= Logger;
 
         Logger.LogInfo("Loading Config...");
         ConfigEnabled = Config.Bind("General", "Enabled", true, "Whether the mod is enabled or not.");
         ConfigInvertScroll = Config.Bind("General", "InvertScroll", true, "Whether or not to invert the scroll wheel when switching items.");
+        ConfigDisableBoot = Config.Bind("General", "DisableBootupScreen", false, "Whether or not to skip the boot up screen.");
+
+        ConfigInfiniteCredits = Config.Bind("Credits", "InfiniteCredits", false, "Whether or not to have infinite credits.");
+        ConfigStartingCredits = Config.Bind("Credits", "StartingCredits", 60, "How many credits to start with.");
 
         foreach (ActionItem item in actions)
             item.ConfigEntry = Config.Bind("Bindings", item.Id, item.Shortcut, item.Description);

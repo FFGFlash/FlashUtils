@@ -25,6 +25,7 @@ public class PlayerControllerB_SwitchItem_performed_Transpiler
 
     var codes = new List<CodeInstruction>(instructions);
 
+    var found = false;
     for (var i = codes.Count - 1; i >= 3; i--)
     {
       var contextArg = codes[i - 3];
@@ -41,7 +42,11 @@ public class PlayerControllerB_SwitchItem_performed_Transpiler
       var newComparison = new CodeInstruction(OpCodes.Bge_Un, comparison.operand);
       codes.RemoveAt(i);
       codes.Insert(i, newComparison);
+      found = true;
     }
+
+    if (found is false)
+      Plugin.logger.LogInfo("Failed to initialize mouse inversion.");
 
     return codes.AsEnumerable();
   }
